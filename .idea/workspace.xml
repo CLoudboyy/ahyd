@@ -2,14 +2,44 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="SpringMVC:war exploded" />
+      <artifact name="SpringMVC:war" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77272ff9-72ae-472a-8b39-1585fecd1d9b" name="Default Changelist" comment="" />
+    <list default="true" id="77272ff9-72ae-472a-8b39-1585fecd1d9b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignHistoryRecord.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignRouteCable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/controller/PlanDesignController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/BaseDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/PlanDesignHistoryRecordDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/PlanDesignInfoDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/RouteCableDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/BaseDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/PlanDesignHistoryRecordDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/PlanDesignInfoDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/RouteCableDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/PlanDesignService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/impl/PlanDesignServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/UserDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/UserDaoImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/mvc/DispatcherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/mvc/DispatcherServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/impl/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,14 +50,28 @@
       <list>
         <option value="AnnotationType" />
         <option value="HTML File" />
-        <option value="Interface" />
         <option value="Jsp File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -39,14 +83,16 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="/Applications/apache-maven-3.8.4" />
-        <option name="userSettingsFile" value="/Applications/apache-maven-3.8.4/conf/settings.xml" />
+        <option name="mavenHome" value="D:/apache-maven-3.8.4" />
+        <option name="userSettingsFile" value="D:\apache-maven-3.8.4\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
   <component name="ProjectId" id="1h4ToCBdbZM7uJfUYYthyIiZDM1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -56,25 +102,31 @@
     <property name="MyBatisLogPluginrunning" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/cn/edu/guet/common" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Cloud\Desktop\temporary\SpringMVC\src\main\java\cn\edu\guet\bean" />
+      <recent name="C:\Users\Cloud\Desktop\SpringMVC\src\main\java\cn\edu\guet\dao\impl" />
+      <recent name="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao" />
       <recent name="$PROJECT_DIR$/src/main/java/cn/edu/guet/common" />
       <recent name="$PROJECT_DIR$/src/main/java/cn/edu/guet" />
-      <recent name="$PROJECT_DIR$/src/main/java/cn/edu/guet/service" />
-      <recent name="$PROJECT_DIR$/src/main/webapp" />
-      <recent name="C:\Users\Administrator\IdeaProjects\SpringMVC\src\main\java\cn\edu\guet\bean" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.edu.guet.service" />
       <recent name="cn.edu.guet.bean" />
     </key>
   </component>
@@ -82,16 +134,17 @@
     <configuration name="Tomcat 9.0.56" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.56" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="17" nameIsGenerated="true">
       <option name="OPEN_IN_BROWSER" value="false" />
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080" />
+      <option name="COMMON_VM_ARGUMENTS" value="-Dfile.encoding=UTF-8" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="SpringMVC:war exploded">
+        <artifact name="SpringMVC:war">
           <settings>
             <option name="CONTEXT_PATH" value="/" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="Unnamed_SpringMVC_2" />
+        <option name="BASE_DIRECTORY_NAME" value="992c7fcb-569e-40a8-be2d-67f7a28af38f" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -99,7 +152,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="2751" />
+        <option name="DEBUG_PORT" value="49989" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -164,7 +217,8 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="SpringMVC:war exploded" />
+          <artifact name="SpringMVC:war" />
+          <artifact name="springmvc:war" />
         </option>
       </method>
     </configuration>
@@ -194,11 +248,67 @@
       <workItem from="1684631160343" duration="9310000" />
       <workItem from="1684656935529" duration="6423000" />
       <workItem from="1684683740453" duration="574000" />
-      <workItem from="1684744832916" duration="87000" />
+      <workItem from="1684744832916" duration="1006000" />
+      <workItem from="1684745943231" duration="352000" />
+      <workItem from="1684810985380" duration="21000" />
+      <workItem from="1684814427775" duration="98000" />
+      <workItem from="1684824408866" duration="657000" />
+      <workItem from="1684841640329" duration="2888000" />
+      <workItem from="1684921024784" duration="2177000" />
+      <workItem from="1684923282197" duration="921000" />
+      <workItem from="1684926354128" duration="8424000" />
+      <workItem from="1684995386051" duration="175000" />
+      <workItem from="1685000009532" duration="18000" />
+      <workItem from="1685000061621" duration="709000" />
+      <workItem from="1685014065504" duration="1617000" />
+      <workItem from="1685086899823" duration="11778000" />
+      <workItem from="1685106589649" duration="6365000" />
+      <workItem from="1685113054269" duration="804000" />
+      <workItem from="1685115231252" duration="144000" />
+      <workItem from="1685158232197" duration="56000" />
+      <workItem from="1685158389560" duration="616000" />
+      <workItem from="1685162251020" duration="6017000" />
+      <workItem from="1685190641428" duration="3499000" />
+      <workItem from="1685241661234" duration="2007000" />
+      <workItem from="1685259416460" duration="316000" />
+      <workItem from="1685262841060" duration="1183000" />
+      <workItem from="1685281497850" duration="1324000" />
+      <workItem from="1685515540406" duration="144000" />
+      <workItem from="1685517113810" duration="3496000" />
+      <workItem from="1685520677516" duration="2237000" />
+      <workItem from="1685617139986" duration="1783000" />
+      <workItem from="1685682400222" duration="948000" />
+      <workItem from="1685683495289" duration="58000" />
+      <workItem from="1685753735423" duration="856000" />
+      <workItem from="1685754857151" duration="753000" />
+      <workItem from="1685755705350" duration="174000" />
+      <workItem from="1685756599513" duration="1901000" />
+      <workItem from="1685775584908" duration="6229000" />
+      <workItem from="1685838603335" duration="85000" />
+      <workItem from="1685939531634" duration="8985000" />
+      <workItem from="1685949184397" duration="3332000" />
+      <workItem from="1685953891927" duration="4803000" />
+      <workItem from="1686051006378" duration="1829000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

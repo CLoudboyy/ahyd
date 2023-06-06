@@ -1,7 +1,8 @@
 package cn.edu.guet.mvc;
 
-import cn.edu.guet.bean.User;
+import cn.edu.guet.bean.PlanDesignInfo;
 import cn.edu.guet.ioc.BeanFactory;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -80,20 +83,32 @@ public class DispatcherServlet extends HttpServlet {
                         parameterValues[i] = Integer.parseInt(request.getParameter(paramterList.get(i)));
                     } else if (parameterType[i].getTypeName().equals("float")) {
                         parameterValues[i] = Float.parseFloat(request.getParameter(paramterList.get(i)));
+                    } else if (parameterType[i].getTypeName().equals("long")) {
+                        parameterValues[i] = Long.parseLong(request.getParameter(paramterList.get(i)));
                     }
+
                 } else if (ClassUtils.isAssignable(parameterType[i], String.class)) {
                     parameterValues[i] = request.getParameter(paramterList.get(i));
                 } else {
                     request.setCharacterEncoding("UTF-8");
-                    //Bean
-                    Object pojo = parameterType[i].newInstance();
-                    //得到请求里所有的参数：Map<参数名, value>
-                    //获取表单里的数据
-                    Map<String, String[]> parameterMap = request.getParameterMap();
-                    //beanutils会自动将map里的key与bean的属性名进行反射赋值
-                    BeanUtils.populate(pojo, parameterMap);
-                    User user=(User)pojo;
+                    InputStreamReader isr = new InputStreamReader(request.getInputStream(),"UTF-8");
+                    BufferedReader br = new BufferedReader(isr);
+                    StringBuffer sb = new StringBuffer();
+                    String line = "";
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    Gson gson = new Gson();
+                    Object pojo = gson.fromJson(sb.toString(), parameterType[i]);
                     parameterValues[i] = pojo;
+//                    //Bean
+//                    Object pojo = parameterType[i].newInstance();
+//                    //得到请求里所有的参数：Map<参数名, value>
+//                    //获取表单里的数据
+//                    Map<String, String[]> parameterMap = request.getParameterMap();
+//                    //beanutils会自动将map里的key与bean的属性名进行反射赋值
+//                    BeanUtils.populate(pojo, parameterMap);
+//                    parameterValues[i] = pojo;
                 }
             }
             /*
@@ -122,8 +137,6 @@ public class DispatcherServlet extends HttpServlet {
                 out.flush();
                 out.close();
             }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
