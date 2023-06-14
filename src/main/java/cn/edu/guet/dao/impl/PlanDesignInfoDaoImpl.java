@@ -87,11 +87,12 @@ public class PlanDesignInfoDaoImpl extends BaseDaoImpl<PlanDesignInfo> implement
             map.put(count++, planDesignDTO.getCreateTime().get(0));
             map.put(count++, planDesignDTO.getCreateTime().get(1));
         }
-        map1 = map;
         String pagination = " LIMIT ?,?";
-        int currentPage = planDesignDTO.getCurrent() - 1;
-        map.put(count++, currentPage);
-        map.put(count++, planDesignDTO.getSize());
+        int currentPage = (planDesignDTO.getCurrent() - 1) * planDesignDTO.getSize();
+        int begin=count++;
+        int limit=count++;
+        map.put(begin, currentPage);
+        map.put(limit, planDesignDTO.getSize());
         sql = sql + whereClause + pagination;
         Connection conn = DBConnection.getConn();
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -140,9 +141,28 @@ public class PlanDesignInfoDaoImpl extends BaseDaoImpl<PlanDesignInfo> implement
             planDesignInfoList.add(planDesignInfo);
         }
         Page<PlanDesignInfo> paginations = new Page<>();
-        sql = "SELECT COUNT(*) FROM plandesigninfo";
-        pstmt = conn.prepareStatement(sql);
-        rs = pstmt.executeQuery();
+        // 如何得出总记录数？执行SELECT COUNT(*) FROM plandesigninfo
+        // 页数：总记录数/size，如果能整除，就是：总记录数/size，否则：总记录数/size+1
+        sql = "SELECT COUNT(*) FROM plandesigninfo" + whereClause;
+        preparedStatement.close();
+        preparedStatement = null;
+        preparedStatement = conn.prepareStatement(sql);
+        map.remove(begin);
+        map.remove(limit);
+        Set<Integer> keySet1 = map.keySet();
+        Iterator<Integer> iterator1 = keySet1.iterator();
+        while (iterator1.hasNext()) {
+            Integer key = iterator1.next();
+            Object value = map.get(key);
+            if (ClassUtils.isAssignable(value.getClass(), String.class)) {
+                preparedStatement.setObject(key, "%" + value + "%");
+            } else if (ClassUtils.isAssignable(value.getClass(), Timestamp.class)) {
+                preparedStatement.setString(key, DateUtil.format((Timestamp) value, "yyyy-MM-dd HH:mm:ss"));
+            } else {
+                preparedStatement.setObject(key, value);
+            }
+        }
+        rs = preparedStatement.executeQuery();
         rs.next();
         int totalRow = rs.getInt(1);
         int pages = 0;
