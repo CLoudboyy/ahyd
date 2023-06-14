@@ -1,5 +1,9 @@
 package cn.edu.guet.bean;
 
+import cn.hutool.core.date.DateTime;
+
+import java.sql.Timestamp;
+
 /**
  * @Author huangzhouyu
  * @Data 2023/6/5 15:04
@@ -9,6 +13,7 @@ public class PlanDesignHistoryRecord {
     private Long plan_design_id;
     private String analyse_no;
     private Integer analyse_status;
+    private Timestamp create_time;
 
     public Long getId() {
         return id;
@@ -42,13 +47,22 @@ public class PlanDesignHistoryRecord {
         this.analyse_status = analyse_status;
     }
 
+    public Timestamp getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(Timestamp create_time) {
+        this.create_time = create_time;
+    }
+
     @Override
     public String toString() {
-        return "planDesignHistoryRecord{" +
+        return "PlanDesignHistoryRecord{" +
                 "id=" + id +
                 ", plan_design_id=" + plan_design_id +
                 ", analyse_no='" + analyse_no + '\'' +
                 ", analyse_status=" + analyse_status +
+                ", create_time=" + create_time +
                 '}';
     }
 }

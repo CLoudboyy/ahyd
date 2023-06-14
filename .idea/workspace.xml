@@ -9,36 +9,25 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77272ff9-72ae-472a-8b39-1585fecd1d9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignHistoryRecord.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignRouteCable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/controller/PlanDesignController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/BaseDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/PlanDesignHistoryRecordDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/PlanDesignInfoDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/RouteCableDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/BaseDaoImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/PlanDesignHistoryRecordDaoImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/PlanDesignInfoDaoImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/RouteCableDaoImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/PlanDesignService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/impl/PlanDesignServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="77272ff9-72ae-472a-8b39-1585fecd1d9b" name="Default Changelist" comment="第二次提交！">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/Page.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/util/TransactionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/UserDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/UserDaoImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/mvc/DispatcherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/mvc/DispatcherServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/impl/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignHistoryRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignHistoryRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/bean/PlanDesignInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/controller/PlanDesignController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/controller/PlanDesignController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/BaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/BaseDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/PlanDesignHistoryRecordDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/PlanDesignHistoryRecordDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/PlanDesignInfoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/PlanDesignInfoDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/BaseDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/BaseDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/PlanDesignHistoryRecordDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/PlanDesignHistoryRecordDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/PlanDesignInfoDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao/impl/PlanDesignInfoDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/PlanDesignService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/PlanDesignService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/impl/PlanDesignServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/service/impl/PlanDesignServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/edu/guet/util/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/guet/util/DBConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +94,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../老师的SpringMVC/SpringMVC" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -119,15 +108,15 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Cloud\Desktop\temporary\SpringMVC\src\main\resources" />
       <recent name="C:\Users\Cloud\Desktop\temporary\SpringMVC\src\main\java\cn\edu\guet\bean" />
       <recent name="C:\Users\Cloud\Desktop\SpringMVC\src\main\java\cn\edu\guet\dao\impl" />
       <recent name="$PROJECT_DIR$/src/main/java/cn/edu/guet/dao" />
       <recent name="$PROJECT_DIR$/src/main/java/cn/edu/guet/common" />
-      <recent name="$PROJECT_DIR$/src/main/java/cn/edu/guet" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="cn.edu.guet.service" />
       <recent name="cn.edu.guet.bean" />
+      <recent name="cn.edu.guet.service" />
     </key>
   </component>
   <component name="RunManager">
@@ -145,6 +134,7 @@
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="992c7fcb-569e-40a8-be2d-67f7a28af38f" />
+        <option name="DEPLOY_TOMCAT_APPS" value="true" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -288,8 +278,35 @@
       <workItem from="1685939531634" duration="8985000" />
       <workItem from="1685949184397" duration="3332000" />
       <workItem from="1685953891927" duration="4803000" />
-      <workItem from="1686051006378" duration="1829000" />
+      <workItem from="1686051006378" duration="4669000" />
+      <workItem from="1686117480183" duration="5469000" />
+      <workItem from="1686135251065" duration="4449000" />
+      <workItem from="1686190505936" duration="3901000" />
+      <workItem from="1686202932749" duration="3555000" />
+      <workItem from="1686206551778" duration="2029000" />
+      <workItem from="1686221360957" duration="8353000" />
+      <workItem from="1686275986194" duration="125000" />
+      <workItem from="1686276391065" duration="5999000" />
+      <workItem from="1686371514430" duration="174000" />
+      <workItem from="1686388890741" duration="1722000" />
+      <workItem from="1686409441767" duration="524000" />
+      <workItem from="1686410455240" duration="45000" />
+      <workItem from="1686457194065" duration="54000" />
+      <workItem from="1686458066733" duration="2776000" />
+      <workItem from="1686464277927" duration="189000" />
+      <workItem from="1686466440928" duration="6389000" />
+      <workItem from="1686486414097" duration="3324000" />
+      <workItem from="1686541852178" duration="2659000" />
+      <workItem from="1686544590280" duration="246000" />
     </task>
+    <task id="LOCAL-00001" summary="第二次提交！">
+      <created>1686053523557</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1686053523557</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,6 +323,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="第二次提交！" />
+    <option name="LAST_COMMIT_MESSAGE" value="第二次提交！" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

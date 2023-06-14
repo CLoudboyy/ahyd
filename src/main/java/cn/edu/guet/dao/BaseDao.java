@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface BaseDao<T> {
 
-    int save(T t) throws SQLException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
+    int save(T t) throws SQLException ;
 
     /**
      * 查找

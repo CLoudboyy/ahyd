@@ -16,25 +16,33 @@ import java.util.Properties;
  */
 public class DBConnection {
 
-	public static Connection getConn() {
-		Properties prop = new Properties();
-		InputStream in;
-		try {
-			in = Class.forName("cn.edu.guet.util.DBConnection").getResourceAsStream("/db.properties");
-			prop.load(in);
+	private static ThreadLocal<Connection> connectionThreadLocal = new ThreadLocal<>();
 
-			String url = prop.getProperty("url");
-			Class.forName(prop.getProperty("driver"));// 加载驱动
-			Connection conn = DriverManager.getConnection(url, prop.getProperty("user"), prop.getProperty("password"));
-			return conn;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+	public static Connection getConn() {
+		// 先从TreadLocal取
+		Connection conn = connectionThreadLocal.get();
+
+		if (conn == null){
+			Properties prop = new Properties();
+			InputStream in;
+			try {
+				in = Class.forName("cn.edu.guet.util.DBConnection").getResourceAsStream("/db.properties");
+				prop.load(in);
+
+				String url = prop.getProperty("url");
+				Class.forName(prop.getProperty("driver"));// 加载驱动
+				conn = DriverManager.getConnection(url, prop.getProperty("user"), prop.getProperty("password"));
+				connectionThreadLocal.set(conn);
+				return conn;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		return null;
+		return conn;
 	}
 	public static void closeConn(Connection conn)
 	{

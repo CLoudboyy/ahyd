@@ -1,6 +1,6 @@
 package cn.edu.guet.bean;
 
-import cn.hutool.core.date.DateTime;
+import java.sql.Timestamp;
 
 /**
  * @Author liwei
@@ -19,21 +19,20 @@ public class PlanDesignInfo {
     private String designer;
     private String reviewer;
     private Integer source;
-    private Integer system_cad_file_id;
-    private String system_cad_file_name;
     private String system_cad_file_url;
-    private Integer system_excel_file_id;
-    private String system_excel_file_name;
+    private String system_cad_file_name;
     private String system_excel_file_url;
-    private Integer channel_excel_file_id;
-    private String channel_excel_file_name;
+    private String system_excel_file_name;
     private String channel_excel_file_url;
+    private String channel_excel_file_name;
     private String cad_coord_left;
     private String cad_coord_top;
     private String cad_coord_right;
     private String cad_coord_bottom;
-    private DateTime create_time;
-    private DateTime update_time;
+    private Integer staff_id;
+    private String staff_name;
+    private Timestamp create_time;
+    private Timestamp update_time;
 
     public Long getId() {
         return id;
@@ -115,12 +114,12 @@ public class PlanDesignInfo {
         this.source = source;
     }
 
-    public Integer getSystem_cad_file_id() {
-        return system_cad_file_id;
+    public String getSystem_cad_file_url() {
+        return system_cad_file_url;
     }
 
-    public void setSystem_cad_file_id(Integer system_cad_file_id) {
-        this.system_cad_file_id = system_cad_file_id;
+    public void setSystem_cad_file_url(String system_cad_file_url) {
+        this.system_cad_file_url = system_cad_file_url;
     }
 
     public String getSystem_cad_file_name() {
@@ -131,20 +130,12 @@ public class PlanDesignInfo {
         this.system_cad_file_name = system_cad_file_name;
     }
 
-    public String getSystem_cad_file_url() {
-        return system_cad_file_url;
+    public String getSystem_excel_file_url() {
+        return system_excel_file_url;
     }
 
-    public void setSystem_cad_file_url(String system_cad_file_url) {
-        this.system_cad_file_url = system_cad_file_url;
-    }
-
-    public Integer getSystem_excel_file_id() {
-        return system_excel_file_id;
-    }
-
-    public void setSystem_excel_file_id(Integer system_excel_file_id) {
-        this.system_excel_file_id = system_excel_file_id;
+    public void setSystem_excel_file_url(String system_excel_file_url) {
+        this.system_excel_file_url = system_excel_file_url;
     }
 
     public String getSystem_excel_file_name() {
@@ -155,20 +146,12 @@ public class PlanDesignInfo {
         this.system_excel_file_name = system_excel_file_name;
     }
 
-    public String getSystem_excel_file_url() {
-        return system_excel_file_url;
+    public String getChannel_excel_file_url() {
+        return channel_excel_file_url;
     }
 
-    public void setSystem_excel_file_url(String system_excel_file_url) {
-        this.system_excel_file_url = system_excel_file_url;
-    }
-
-    public Integer getChannel_excel_file_id() {
-        return channel_excel_file_id;
-    }
-
-    public void setChannel_excel_file_id(Integer channel_excel_file_id) {
-        this.channel_excel_file_id = channel_excel_file_id;
+    public void setChannel_excel_file_url(String channel_excel_file_url) {
+        this.channel_excel_file_url = channel_excel_file_url;
     }
 
     public String getChannel_excel_file_name() {
@@ -177,14 +160,6 @@ public class PlanDesignInfo {
 
     public void setChannel_excel_file_name(String channel_excel_file_name) {
         this.channel_excel_file_name = channel_excel_file_name;
-    }
-
-    public String getChannel_excel_file_url() {
-        return channel_excel_file_url;
-    }
-
-    public void setChannel_excel_file_url(String channel_excel_file_url) {
-        this.channel_excel_file_url = channel_excel_file_url;
     }
 
     public String getCad_coord_left() {
@@ -219,19 +194,35 @@ public class PlanDesignInfo {
         this.cad_coord_bottom = cad_coord_bottom;
     }
 
-    public DateTime getCreate_time() {
+    public Integer getStaff_id() {
+        return staff_id;
+    }
+
+    public void setStaff_id(Integer staff_id) {
+        this.staff_id = staff_id;
+    }
+
+    public String getStaff_name() {
+        return staff_name;
+    }
+
+    public void setStaff_name(String staff_name) {
+        this.staff_name = staff_name;
+    }
+
+    public Timestamp getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(DateTime create_time) {
+    public void setCreate_time(Timestamp create_time) {
         this.create_time = create_time;
     }
 
-    public DateTime getUpdate_time() {
+    public Timestamp getUpdate_time() {
         return update_time;
     }
 
-    public void setUpdate_time(DateTime update_time) {
+    public void setUpdate_time(Timestamp update_time) {
         this.update_time = update_time;
     }
 
@@ -248,19 +239,18 @@ public class PlanDesignInfo {
                 ", designer='" + designer + '\'' +
                 ", reviewer='" + reviewer + '\'' +
                 ", source=" + source +
-                ", system_cad_file_id=" + system_cad_file_id +
-                ", system_cad_file_name='" + system_cad_file_name + '\'' +
                 ", system_cad_file_url='" + system_cad_file_url + '\'' +
-                ", system_excel_file_id=" + system_excel_file_id +
-                ", system_excel_file_name='" + system_excel_file_name + '\'' +
+                ", system_cad_file_name='" + system_cad_file_name + '\'' +
                 ", system_excel_file_url='" + system_excel_file_url + '\'' +
-                ", channel_excel_file_id=" + channel_excel_file_id +
-                ", channel_excel_file_name='" + channel_excel_file_name + '\'' +
+                ", system_excel_file_name='" + system_excel_file_name + '\'' +
                 ", channel_excel_file_url='" + channel_excel_file_url + '\'' +
+                ", channel_excel_file_name='" + channel_excel_file_name + '\'' +
                 ", cad_coord_left='" + cad_coord_left + '\'' +
                 ", cad_coord_top='" + cad_coord_top + '\'' +
                 ", cad_coord_right='" + cad_coord_right + '\'' +
                 ", cad_coord_bottom='" + cad_coord_bottom + '\'' +
+                ", staff_id=" + staff_id +
+                ", staff_name='" + staff_name + '\'' +
                 ", create_time=" + create_time +
                 ", update_time=" + update_time +
                 '}';

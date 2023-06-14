@@ -1,13 +1,12 @@
 package cn.edu.guet.controller;
 
-import cn.edu.guet.bean.PlanDesignHistoryRecord;
+import cn.edu.guet.bean.PlanDesignDTO;
 import cn.edu.guet.bean.PlanDesignInfo;
 import cn.edu.guet.common.ResponseData;
 import cn.edu.guet.mvc.annotation.Controller;
 import cn.edu.guet.mvc.annotation.RequestMapping;
 import cn.edu.guet.service.PlanDesignService;
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
+import cn.edu.guet.util.TransactionHandler;
 import com.google.gson.Gson;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -20,10 +19,10 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.HashMap;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author huangzhouyu
@@ -34,10 +33,12 @@ public class PlanDesignController {
 
     public static Logger logger = LoggerFactory.getLogger(PlanDesignInfo.class);
 
+    TransactionHandler transactionHandler = new TransactionHandler();
+
     private PlanDesignService planDesignService;
 
     public void setPlanDesignService(PlanDesignService planDesignService) {
-        this.planDesignService = planDesignService;
+        this.planDesignService = (PlanDesignService) transactionHandler.createProxyObject(planDesignService);
     }
 
     /**
@@ -117,38 +118,18 @@ public class PlanDesignController {
 
     @RequestMapping("/createBillAndAnalyse")
     public ResponseData createBillAndAnalyse(PlanDesignInfo planDesignInfo) {
-        /*
-        1、保存工单
-        2、调用解析接口
-         */
-        planDesignService.createBill(planDesignInfo);
-        planDesignInfo.setReviewer("桂电");
-        Map<String, Object> map = new HashMap<>(8);
-        map.put("systemCADFilePath", planDesignInfo.getSystem_cad_file_url());
-        map.put("systemExcelFilePath", planDesignInfo.getSystem_excel_file_url());
-        map.put("channelExcelFilePath", planDesignInfo.getChannel_excel_file_url());
-        map.put("planBillNo", planDesignInfo.getPlan_bill_no());
-        map.put("cadCoordLeft", planDesignInfo.getCad_coord_left());
-        map.put("cadCoordTop", planDesignInfo.getCad_coord_top());
-        map.put("cadCoordRight", planDesignInfo.getCad_coord_right());
-        map.put("cadCoordBottom", planDesignInfo.getCad_coord_bottom());
-
-
-        String queryJson = new Gson().toJson(map);
-        Map<String, String> heads = new HashMap<>(1);
-        heads.put("Content-Type", "application/json;charset=UTF-8");
-        HttpResponse response = HttpRequest.post("http://1.116.118.200:9999/analysCADCallApi")
-                .headerMap(heads, false)
-                .body(queryJson)
-                .timeout(5*60*100)
-                .execute();
-        ResponseData responseData=new Gson().fromJson(response.body(),ResponseData.class);
-        logger.info(responseData.getCode() + "");
-        logger.info(responseData.getMessage());
-        logger.info(responseData.getData() + "");
-        Map<String, Object> dataMap = (Map<String, Object>) responseData.getData();
-        String analyseNo = (String) dataMap.get("analyseNo");
-        String planBillNo = (String) dataMap.get("planBillNo");
-        return responseData;
+        logger.info("创建工单：{}", planDesignInfo);
+        try {
+            return planDesignService.createBillAndAnalyse(planDesignInfo);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+
+    @RequestMapping("/searchBill")
+    public ResponseData searchBill(PlanDesignDTO planDesignDTO) {
+        return planDesignService.searchBill(planDesignDTO);
+    }
+
 }

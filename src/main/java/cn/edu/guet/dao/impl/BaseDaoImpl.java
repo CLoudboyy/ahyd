@@ -32,7 +32,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public int save(T t) {
+    public int save(T t) throws SQLException {
         conn = DBConnection.getConn();
         String sql = "INSERT INTO " + t.getClass().getSimpleName().toLowerCase() + " (";
         List<Method> list = this.matchPojoMethods(t, "get");
@@ -68,26 +68,21 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         // 到此SQL语句拼接完成,打印SQL语句
         logger.info("当前SQL：{}", sql);
         int affectRow = 0;
-        try {
-            pstmt = conn.prepareStatement(sql);
-            String uuid = UUID.randomUUID().toString().replace("-", "");
-            uuid = uuid.replaceAll("[a-z]", "").substring(0, 15);
-            Long id = Long.parseLong(uuid);
-            for (int j = 0; j < obj.length; j++) {
-                if (list.get(j).getName().equals("getId")) {
-                    pstmt.setObject(j + 1, id);
-                } else {
-                    pstmt.setObject(j + 1, obj[j]);
-                }
+
+        pstmt = conn.prepareStatement(sql);
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        uuid = uuid.replaceAll("[a-z]", "").substring(0, 15);
+        Long id = Long.parseLong(uuid);
+        for (int j = 0; j < obj.length; j++) {
+            if (list.get(j).getName().equals("getId")) {
+                pstmt.setObject(j + 1, id);
+            } else {
+                pstmt.setObject(j + 1, obj[j]);
             }
-            affectRow = pstmt.executeUpdate();
-            return affectRow;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.closeConn(conn);
         }
-        return 0;
+        affectRow = pstmt.executeUpdate();
+        return affectRow;
+
     }
 
     private List<Method> matchPojoMethods(T entity, String methodName) {
@@ -210,7 +205,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
                     sql += method.getName().substring(3).toLowerCase() + "=" + "?" + ",";
                 }
                 if (method.getReturnType().getSimpleName().indexOf("Timestamp") != -1) {
-                    obj[i] = Timestamp.valueOf(method.invoke(t, new Object[]{}).toString());
+                    if (method.invoke(t, new Object[]{}) != null) {
+                        obj[i] = Timestamp.valueOf(method.invoke(t, new Object[]{}).toString());
+                    }
                 } else {
                     obj[i] = method.invoke(t, new Object[]{});
                 }

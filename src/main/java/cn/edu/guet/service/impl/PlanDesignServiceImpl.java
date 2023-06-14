@@ -1,5 +1,7 @@
 package cn.edu.guet.service.impl;
 
+import cn.edu.guet.bean.Page;
+import cn.edu.guet.bean.PlanDesignDTO;
 import cn.edu.guet.bean.PlanDesignHistoryRecord;
 import cn.edu.guet.bean.PlanDesignInfo;
 import cn.edu.guet.common.ResponseData;
@@ -7,14 +9,17 @@ import cn.edu.guet.dao.PlanDesignHistoryRecordDao;
 import cn.edu.guet.dao.PlanDesignInfoDao;
 import cn.edu.guet.dao.RouteCableDao;
 import cn.edu.guet.service.PlanDesignService;
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpResponse;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -53,12 +58,19 @@ public class PlanDesignServiceImpl implements PlanDesignService {
 
     @Override
     public ResponseData createBill(PlanDesignInfo planDesignInfo) {
+        long now = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = sdf.format(new Date(now));
+        Timestamp createTime = Timestamp.valueOf(formattedDate);
+        Timestamp updateTime = Timestamp.valueOf(formattedDate);
+        planDesignInfo.setCreate_time(createTime);
+        planDesignInfo.setUpdate_time(updateTime);
         try {
             int saveResult = planDesignInfoDao.save(planDesignInfo);
             if (saveResult == 1) {
                 return new ResponseData("工单创建成功！");
             }
-        } catch (SQLException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return ResponseData.fail("工单创建失败！");
@@ -66,7 +78,7 @@ public class PlanDesignServiceImpl implements PlanDesignService {
 
     @Override
     public String getBillNo() {
-        List<String> planBillNubers = null;
+        List<String> planBillNumbers = null;
         try {
             /*
             获取当天日期
@@ -74,26 +86,27 @@ public class PlanDesignServiceImpl implements PlanDesignService {
             Date date = new Date(System.currentTimeMillis());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String nowDate = sdf.format(date);
-            logger.info("当天日期：{}", nowDate);
-            planBillNubers = planDesignInfoDao.getPlanBillNo();
-            if (planBillNubers.size() != 0) {
-                String planBillNo = planBillNubers.get(0);
+            planBillNumbers = planDesignInfoDao.getPlanBillNo();
+            // 数据库没有任何记录
+            if (planBillNumbers.size() != 0) {
+                String planBillNo = planBillNumbers.get(0);
                 String planBillNoDate = planBillNo.substring(9, 17);
-                logger.info("数据库取出的工单号：{}", planBillNoDate);
-                // 如果不相等，说明当天没有工单号，直接返回
+                logger.info("planBillNoDate:{}", planBillNoDate);
+                logger.info("nowDate:{}", nowDate);
+                // 如果不相当，说明当天还没有工单
                 if (!nowDate.equals(planBillNoDate)) {
-                    return "ANHD-PM-" + nowDate + "-001";
+                    return "AHYD-PMS-" + nowDate + "-001";
                 } else {
-                    String number = planBillNoDate.substring(18);
+                    String number = planBillNo.substring(18);
                     int no = Integer.parseInt(number);
                     no++;
                     number = String.valueOf(no);
                     if (number.length() == 1) {
-                        return "ANHD-PM-" + nowDate + "-00" + number;
+                        return "AHYD-PMS-" + planBillNoDate + "-00" + no;
                     } else if (number.length() == 2) {
-                        return "ANHD-PM-" + nowDate + "-0" + number;
+                        return "AHYD-PMS-" + planBillNoDate + "-0" + no;
                     } else {
-                        return "ANHD-PM-" + nowDate + "-" + number;
+                        return "AHYD-PMS-" + planBillNoDate + "-" + no;
                     }
                 }
             } else {
@@ -105,27 +118,92 @@ public class PlanDesignServiceImpl implements PlanDesignService {
         return null;
     }
 
+
     @Override
-    public ResponseData saveAnalyseNoAndPlanDesignId(PlanDesignHistoryRecord planDesignHistoryRecord) {
-        try {
-            int saveResult = planDesignHistoryRecordDao.save(planDesignHistoryRecord);
-            if (saveResult == 1){
-                return new ResponseData("保存成功！");
-            }
-        } catch (SQLException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return ResponseData.fail("保存失败！");
+    public ResponseData createBillAndAnalyse(PlanDesignInfo planDesignInfo) throws SQLException {
+         /*
+        1、保存工单
+        2、调用解析接口
+         */
+        // 保存工单
+        createBill(planDesignInfo);
+
+        Map<String, Object> map = new HashMap<>(8);
+        map.put("systemCADFilePath", planDesignInfo.getSystem_cad_file_url());
+        map.put("systemExcelFilePath", planDesignInfo.getSystem_excel_file_url());
+        map.put("channelExcelFilePath", planDesignInfo.getChannel_excel_file_url());
+        map.put("planBillNo", planDesignInfo.getPlan_bill_no());
+        map.put("cadCoordLeft", planDesignInfo.getCad_coord_left());
+        map.put("cadCoordTop", planDesignInfo.getCad_coord_top());
+        map.put("cadCoordRight", planDesignInfo.getCad_coord_right());
+        map.put("cadCoordBottom", planDesignInfo.getCad_coord_bottom());
+
+
+        String queryJson = new Gson().toJson(map);
+        Map<String, String> heads = new HashMap<>(1);
+        heads.put("Content-Type", "application/json;charset=UTF-8");
+        HttpResponse response = HttpRequest.post("http://localhost:9999/analyseCADCallApi")
+                .headerMap(heads, false)
+                .body(queryJson)
+                .timeout(5 * 60 * 100)
+                .execute();
+        ResponseData responseData = new Gson().fromJson(response.body(), ResponseData.class);
+        logger.info(responseData.getCode() + "");
+        logger.info(responseData.getMessage());
+        logger.info(responseData.getData() + "");
+
+
+        /*
+        将analyseNo、plan_design_no、create_time和analyse_status存入planDesignHistoryRecord表中
+         */
+        Map<String, Object> dataMap = (Map<String, Object>) responseData.getData();
+        String analyseNo = (String) dataMap.get("analyseNo");
+        String planBillNo = (String) dataMap.get("planBillNo");
+        logger.info("planBillNo:{}",planBillNo);
+        // Long planDesignId = getPlanDesignIdByPlanBillNo(planBillNo);
+        Long planDesignId = planDesignInfoDao.getPlanDesignIdByPlanBillNo(planBillNo);
+        PlanDesignHistoryRecord planDesignHistoryRecord = new PlanDesignHistoryRecord();
+        planDesignHistoryRecord.setPlan_design_id(planDesignId);
+        planDesignHistoryRecord.setAnalyse_no(analyseNo);
+        // 创建时间
+        long now = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = sdf.format(new Date(now));
+        Timestamp createTime = Timestamp.valueOf(formattedDate);
+        planDesignHistoryRecord.setCreate_time(createTime);
+        planDesignHistoryRecord.setAnalyse_status(1);
+
+
+        // 保存历史分析表
+        planDesignHistoryRecordDao.save(planDesignHistoryRecord);
+        return responseData;
     }
 
     @Override
-    public Long getPlanDesignId(String planBillNo) {
+    public ResponseData searchBill(PlanDesignDTO planDesignDTO) {
+        Page<PlanDesignInfo> pagination = null;
         try {
-            return planDesignHistoryRecordDao.getPlanDesignId(planBillNo);
+            pagination = planDesignInfoDao.searchBill(planDesignDTO);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0L;
+        return ResponseData.ok(pagination);
     }
 
+    @Override
+    public Long getPlanDesignIdByPlanBillNo(String planBillNo) {
+        try {
+            Long planDesignId = planDesignInfoDao.getPlanDesignIdByPlanBillNo(planBillNo);
+            return planDesignId;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ResponseData createHistoryRecord(PlanDesignHistoryRecord planDesignHistoryRecord) {
+
+        return null;
+    }
 }
