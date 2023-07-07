@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MySQLTables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/hzy?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;useSSL=false&amp;serverTimezone=UTC"
+                        userId="root"
+                        password="Hzy123456..">
+        </jdbcConnection>
+        <javaModelGenerator targetPackage="cn.edu.guet.bean" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="./src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.edu.guet.mapper" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+<!--            <table tableName="t_plan_design_info" domainObjectName="PlanDesignInfo"></table>-->
+<!--            <table tableName="t_plan_design_business_route" domainObjectName="PlanDesignBusinessRoute"/>-->
+<!--            <table tableName="t_plan_design_route_cable" domainObjectName="PlanDesignRouteCable"/>-->
+<!--            <table tableName="t_plan_design_cad_drawing" domainObjectName="PlanDesignCadDrawing"/>-->
+<!--            <table tableName="t_plan_design_consistency_result" domainObjectName="PlanDesignConsistencyResult"/>-->
+<!--            <table tableName="t_plan_design_excel_record" domainObjectName="PlanDesignExcelRecord"/>-->
+<!--            <table tableName="t_plan_design_physics_route" domainObjectName="PlanDesignPhysicsRoute"/>-->
+            <table tableName="t_plan_design_history_record" domainObjectName="PlanDesignHistoryRecord"/>
+    </context>
+</generatorConfiguration>

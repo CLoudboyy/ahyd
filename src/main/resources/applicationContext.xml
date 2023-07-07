@@ -2,16 +2,8 @@
 
 <beans>
     <bean id="planDesignController" class="cn.edu.guet.controller.PlanDesignController">
-        <property name="planDesignService" ref="planDesignService"></property>
+        <property name="planDesignInfoService" ref="planDesignInfoService"></property>
     </bean>>
 
-    <bean id="planDesignService" class="cn.edu.guet.service.impl.PlanDesignServiceImpl">
-        <property name="routeCableDao" ref="routeCableDao"></property>
-        <property name="planDesignInfoDao" ref="planDesignInfoDao"></property>
-        <property name="planDesignHistoryRecordDao" ref="planDesignHistoryRecordDao"></property>
-    </bean>
-
-    <bean id="routeCableDao" class="cn.edu.guet.dao.impl.RouteCableDaoImpl"></bean>
-    <bean id="planDesignInfoDao" class="cn.edu.guet.dao.impl.PlanDesignInfoDaoImpl"></bean>
-    <bean id="planDesignHistoryRecordDao" class="cn.edu.guet.dao.impl.PlanDesignHistoryRecordDaoImpl"></bean>
+    <bean id="planDesignInfoService" class="cn.edu.guet.service.impl.PlanDesignInfoServiceImpl"></bean>
 </beans>

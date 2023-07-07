@@ -5,7 +5,7 @@ import cn.edu.guet.bean.PlanDesignInfo;
 import cn.edu.guet.common.ResponseData;
 import cn.edu.guet.mvc.annotation.Controller;
 import cn.edu.guet.mvc.annotation.RequestMapping;
-import cn.edu.guet.service.PlanDesignService;
+import cn.edu.guet.service.PlanDesignInfoService;
 import cn.edu.guet.util.TransactionHandler;
 import com.google.gson.Gson;
 import org.apache.commons.fileupload.FileItem;
@@ -19,10 +19,10 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
+
 
 /**
  * @Author huangzhouyu
@@ -31,24 +31,36 @@ import java.util.List;
 @Controller
 public class PlanDesignController {
 
-    public static Logger logger = LoggerFactory.getLogger(PlanDesignInfo.class);
+    public static Logger logger = LoggerFactory.getLogger(PlanDesignController.class);
 
     TransactionHandler transactionHandler = new TransactionHandler();
 
-    private PlanDesignService planDesignService;
+    private PlanDesignInfoService planDesignInfoService;
 
-    public void setPlanDesignService(PlanDesignService planDesignService) {
-        this.planDesignService = (PlanDesignService) transactionHandler.createProxyObject(planDesignService);
+    public void setPlanDesignInfoService(PlanDesignInfoService planDesignInfoService) {
+        this.planDesignInfoService = (PlanDesignInfoService) transactionHandler.createProxyObject(planDesignInfoService);
+    }
+
+
+    /**
+     * 业务同路由查询
+     * @param id
+     * @return
+     */
+    @RequestMapping("/selectBusinessRouteByPlanDesignId")
+    public ResponseData selectBusinessRouteByPlanDesignId(Long id) {
+        System.out.println("plan_design_id: " + id);
+        return planDesignInfoService.selectBusinessRouteByPlanDesignId(id);
     }
 
     /**
-     * 查询主备路由光缆
-     *
-     * @return JSON数据
+     * 主同路由查询
+     * @param id
+     * @return
      */
     @RequestMapping("/selectRouteCableList")
-    public ResponseData selectRouteCableList() {
-        return planDesignService.selectRouteList();
+    public ResponseData selectRouteCableList(Long id) {
+        return planDesignInfoService.selectRouteCableList(id);
     }
 
     /**
@@ -58,26 +70,15 @@ public class PlanDesignController {
      * @return
      */
     @RequestMapping("/createBill")
-    public ResponseData createBill(PlanDesignInfo planDesignInfo) {
-        logger.info("创建工单：{}", planDesignInfo);
-        return planDesignService.createBill(planDesignInfo);
+    public ResponseData createBill(PlanDesignInfo planDesignInfo){
+        return planDesignInfoService.createBill(planDesignInfo);
     }
 
-    /**
-     * 获取工单号
-     */
-    @RequestMapping("/getBillNo")
-    public ResponseData getBillNo(PlanDesignInfo planDesignInfo) {
-        return ResponseData.ok(planDesignService.getBillNo());
+    @RequestMapping("/parseCAD")
+    public ResponseData parseCAD() {
+        return planDesignInfoService.parseCAD();
     }
 
-    /**
-     * 工单号获取
-     *
-     * @param request
-     * @param response
-     * @return
-     */
     @RequestMapping("/upload")
     public ResponseData upload(HttpServletRequest request, HttpServletResponse response) {
         String dir = System.getProperty("user.dir");
@@ -116,20 +117,29 @@ public class PlanDesignController {
         return null;
     }
 
+    /**
+     * 获取工单号
+     */
+    @RequestMapping("/getBillNo")
+    public ResponseData getBillNo(PlanDesignInfo planDesignInfo) {
+        return ResponseData.ok(planDesignInfoService.getBillNo());
+    }
+
+
+    /**
+     * 保存并分析
+     * @param planDesignInfo
+     * @return
+     */
     @RequestMapping("/createBillAndAnalyse")
     public ResponseData createBillAndAnalyse(PlanDesignInfo planDesignInfo) {
         logger.info("创建工单：{}", planDesignInfo);
-        try {
-            return planDesignService.createBillAndAnalyse(planDesignInfo);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return planDesignInfoService.createBillAndAnalyse(planDesignInfo);
     }
 
     @RequestMapping("/searchBill")
     public ResponseData searchBill(PlanDesignDTO planDesignDTO) {
-        return planDesignService.searchBill(planDesignDTO);
+        return planDesignInfoService.searchBill(planDesignDTO);
     }
 
 }
