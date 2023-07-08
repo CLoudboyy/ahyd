@@ -16,6 +16,6 @@
         </environment>
     </environments>
     <mappers>
-        <package name="cn.edu.guet.mapper"/>
+        <package name="classpath:mapper"/>
     </mappers>
 </configuration>

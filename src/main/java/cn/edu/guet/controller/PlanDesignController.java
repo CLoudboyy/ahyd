@@ -3,10 +3,7 @@ package cn.edu.guet.controller;
 import cn.edu.guet.bean.PlanDesignDTO;
 import cn.edu.guet.bean.PlanDesignInfo;
 import cn.edu.guet.common.ResponseData;
-import cn.edu.guet.mvc.annotation.Controller;
-import cn.edu.guet.mvc.annotation.RequestMapping;
 import cn.edu.guet.service.PlanDesignInfoService;
-import cn.edu.guet.util.TransactionHandler;
 import com.google.gson.Gson;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -15,11 +12,15 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,13 +34,8 @@ public class PlanDesignController {
 
     public static Logger logger = LoggerFactory.getLogger(PlanDesignController.class);
 
-    TransactionHandler transactionHandler = new TransactionHandler();
-
+    @Autowired
     private PlanDesignInfoService planDesignInfoService;
-
-    public void setPlanDesignInfoService(PlanDesignInfoService planDesignInfoService) {
-        this.planDesignInfoService = (PlanDesignInfoService) transactionHandler.createProxyObject(planDesignInfoService);
-    }
 
 
     /**
@@ -47,7 +43,8 @@ public class PlanDesignController {
      * @param id
      * @return
      */
-    @RequestMapping("/selectBusinessRouteByPlanDesignId")
+    @RequestMapping("/selectBusinessRouteByPlanDesignId.do")
+    @ResponseBody
     public ResponseData selectBusinessRouteByPlanDesignId(Long id) {
         System.out.println("plan_design_id: " + id);
         return planDesignInfoService.selectBusinessRouteByPlanDesignId(id);
@@ -58,7 +55,8 @@ public class PlanDesignController {
      * @param id
      * @return
      */
-    @RequestMapping("/selectRouteCableList")
+    @RequestMapping("/selectRouteCableList.do")
+    @ResponseBody
     public ResponseData selectRouteCableList(Long id) {
         return planDesignInfoService.selectRouteCableList(id);
     }
@@ -69,17 +67,20 @@ public class PlanDesignController {
      * @param planDesignInfo
      * @return
      */
-    @RequestMapping("/createBill")
-    public ResponseData createBill(PlanDesignInfo planDesignInfo){
+    @RequestMapping("/createBill.do")
+    @ResponseBody
+    public ResponseData createBill(@RequestBody PlanDesignInfo planDesignInfo){
         return planDesignInfoService.createBill(planDesignInfo);
     }
 
-    @RequestMapping("/parseCAD")
+    @RequestMapping("/parseCAD.do")
+    @ResponseBody
     public ResponseData parseCAD() {
         return planDesignInfoService.parseCAD();
     }
 
-    @RequestMapping("/upload")
+    @RequestMapping("/upload.do")
+    @ResponseBody
     public ResponseData upload(HttpServletRequest request, HttpServletResponse response) {
         String dir = System.getProperty("user.dir");
         dir = dir.substring(0, dir.lastIndexOf("\\"));
@@ -120,8 +121,9 @@ public class PlanDesignController {
     /**
      * 获取工单号
      */
-    @RequestMapping("/getBillNo")
-    public ResponseData getBillNo(PlanDesignInfo planDesignInfo) {
+    @RequestMapping("/getBillNo.do")
+    @ResponseBody
+    public ResponseData getBillNo() {
         return ResponseData.ok(planDesignInfoService.getBillNo());
     }
 
@@ -131,14 +133,16 @@ public class PlanDesignController {
      * @param planDesignInfo
      * @return
      */
-    @RequestMapping("/createBillAndAnalyse")
-    public ResponseData createBillAndAnalyse(PlanDesignInfo planDesignInfo) {
+    @RequestMapping("/createBillAndAnalyse.do")
+    @ResponseBody
+    public ResponseData createBillAndAnalyse(@RequestBody PlanDesignInfo planDesignInfo) {
         logger.info("创建工单：{}", planDesignInfo);
         return planDesignInfoService.createBillAndAnalyse(planDesignInfo);
     }
 
-    @RequestMapping("/searchBill")
-    public ResponseData searchBill(PlanDesignDTO planDesignDTO) {
+    @RequestMapping("/searchBill.do")
+    @ResponseBody
+    public ResponseData searchBill(@RequestBody PlanDesignDTO planDesignDTO) {
         return planDesignInfoService.searchBill(planDesignDTO);
     }
 
